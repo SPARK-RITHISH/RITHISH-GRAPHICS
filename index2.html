@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+    <style>
+        /* Add your existing CSS styles here */
+        .hidden {
+            display: none;
+        }
+        .student-list {
+            margin-top: 20px;
+        }
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .attendance-table th, .attendance-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .attendance-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .attendance-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .attendance-table tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Lobster&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <center>
+            <img src="GOVT-LOGO-300x225-1 (1).jpeg.jpg" height="270" width="270" alt="College Logo">
+            <h1>Attendance Management System</h1>
+            <h1>𝙶𝙾𝚅𝙴𝚁𝙽𝙼𝙴𝙽𝚃 𝙰𝚁𝚃𝚂 A𝙽𝙳 S𝙲𝙸𝙴𝙽𝙲𝙴 𝙲𝙾𝙻𝙻𝙴𝙶𝙴, 𝚃𝙸𝚁𝚄𝙿𝙰𝚃𝚃𝚄𝚁</h1>
+            <h3>Sign In</h3>
+            <!-- Sign-In Form -->
+            <form id="signinForm">
+                <label for="signinUsername">Username:</label>
+                <input type="text" id="signinUsername" placeholder="Enter Username" required>
+                <label for="signinPassword">Password:</label>
+                <input type="password" id="signinPassword" placeholder="Enter Password" required>
+                <button type="submit">Sign In <span class="emoji">🔑</span></button>
+            </form>
+            <p>Don't have an account? <a href="#" id="showSignUp">Sign Up</a></p>
+        </center>
 
+        <!-- Sign-Up Form (Initially hidden) -->
+        <center>
+            <form id="signupForm" class="hidden">
+                <h3>Sign Up</h3>
+                <label for="signupUsername">Username:</label>
+                <input type="text" id="signupUsername" placeholder="Enter Username" required>
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" placeholder="Enter Password" required>
+                <button type="submit">Sign Up <span class="emoji">📝</span></button>
+                <p>Already have an account? <a href="#" id="showSignIn">Sign In</a></p>
+            </form>
+        </center>
+
+        <!-- Attendance Section (Initially hidden) -->
+        <div id="attendanceSection" class="hidden">
+            <h2>Attendance Records</h2>
+            <form id="departmentYearForm">
+                <label for="department">Department:</label>
+                <select id="department" required>
+                    <option value="Tamil">Tamil B.sc(Tamil)</option>
+                    <option value="English">English B.sc(English)</option>
+                    <option value="Computer Application">Computer Application (BCA)</option>
+                    <option value="Computer Science">Computer Science B.sc(computer science)</option>
+                    <option value="Mathematics">Mathematics B.sc(Mathematics)</option>
+                    <option value="Physics">Physics B.SC(Physics)</option>
+                    <option value="Chemistry">Chemistry B.Sc(Chemistry)</option>
+                    <option value="Commerce">Commerce B.com</option>
+                    <option value="Commerce Computer Application">Commerce Computer Application B.COM (CA)</option>
+                    <option value="Business Administration">Business Administration BBA</option>
+                </select>
+
+                <label for="year">Year:</label>
+                <select id="year" required>
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                </select>
+
+                <button type="submit">Show Students</button>
+            </form>
+
+            <div id="studentList" class="hidden">
+                <h3>Students List</h3>
+                <table class="attendance-table" id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student Name</th>
+                            <th>Attendance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic rows will be added here -->
+                    </tbody>
+                </table>
+                <button id="saveAttendanceBtn">Save Attendance</button>
+            </div>
+
+            <div id="attendanceRecords" class="hidden">
+                <h3>Attendance Records</h3>
+                <table class="attendance-table" id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Student Name</th>
+                            <th>Department</th>
+                            <th>Year</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic rows will be added here -->
+                    </tbody>
+                </table>
+                <button id="downloadPDFBtn">Download as PDF 📄</button>
+                <button id="downloadExcelBtn">Download as Excel 📊</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Development by <a href="https://rithishgraphics.neocities.org/rithish%20graphics/rithish%20graphics">Rithish Graphics</a> &copy; 2025. All rights reserved. | <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy</a> <br>
+        <img src="Youtube.pn.png"> </center> <br><a href="https://www.youtube.com/@TechSyntaxofficial">SUBSCRIBE MY YOUTUBE</a></p>
+        <p>📞Contact: +91 63811 97003 <br> ✉ Email: Rithishsekar421@gmail.com <br> 🌐: Rithish Graphics <a href="https://rithishgraphics.neocities.org/rithish%20graphics/rithish%20graphics">Website</a></p>
+    </footer>
+
+    <!-- Include jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include SheetJS Library for Excel Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+
+    <script>
+        // Sample student data (replace with actual data from backend)
+        const students = {
+            "Tamil": {
+                "1st Year": ["Student 1", "Student 2", "Student 3"],
+                "2nd Year": ["Student 4", "Student 5"],
+                "3rd Year": ["Student 6", "Student 7"]
+            },
+            "English": {
+                "1st Year": ["Student 8", "Student 9"],
+                "2nd Year": ["Student 10"],
+                "3rd Year": ["Student 11", "Student 12"]
+            },
+            "Computer Application": {
+                "1st Year": [
+                    "MANIKANDAN G", "TAMILARASAN S", "SANJAY A", "KAVIYA M", "JANANI V", 
+                    "RAJA K", "VISHAL M", "SURYA L", "SRIGANTH C", "SRIDHAR S", 
+                    "POORNIMA K", "MURALI M", "CHANDIRASEKARAN C", "SIVAPRAKASAM C", 
+                    "NAVEEN B S", "RACHANA M", "SOWMIYA M", "CHANDRU S", "SOWDHU S", 
+                    "ELANGO P", "DHARSHINI P", "NAVEENKUMAR M", "DHANUSH A", 
+                    "RAGULDEVAN R", "SRISANGAVI V", "ASHA P", "GOWTHAM S", 
+                    "SANJAI S", "ABINAYA R", "FARAZ A", "HARIVASH C", "VISWANATH S", 
+                    "PRATHESH T", "SANTHOSH M", "SANTHOSH T", "KAMALESH V", 
+                    "NAGENDIRAN T", "DEEPIKA R", "RITHISH S", "YAZHINI S", 
+                    "FATHIMA M", "VASUNTHRA DEVI S", "AMUTHA S", "GOPINATH M", 
+                    "MOULIDHARAN V"
+                ],
+                "2nd Year": ["Student 4", "Student 5"], // Add 2nd-year students if available
+                "3rd Year": ["Student 6", "Student 7"]  // Add 3rd-year students if available
+            },
+            // Add other departments as needed
+        };
+
+        // JavaScript Functionality
+        document.getElementById("signinForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("signinUsername").value.trim();
+            const password = document.getElementById("signinPassword").value.trim();
+
+            const savedUsername = localStorage.getItem("username");
+            const savedPassword = localStorage.getItem("password");
+
+            if (username === savedUsername && password === savedPassword) {
+                alert("Sign-In Successful!");
+                document.getElementById("signinForm").classList.add("hidden");
+                document.getElementById("attendanceSection").classList.remove("hidden");
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("signupUsername").value.trim();
+            const password = document.getElementById("signupPassword").value.trim();
+
+            if (username && password) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+                alert("Sign-Up Successful! Please sign in.");
+                document.getElementById("signupForm").classList.add("hidden");
+                document.getElementById("signinForm").classList.remove("hidden");
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+
+        document.getElementById("showSignUp").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("signinForm").classList.add("hidden");
+            document.getElementById("signupForm").classList.remove("hidden");
+        });
+
+        document.getElementById("showSignIn").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("signupForm").classList.add("hidden");
+            document.getElementById("signinForm").classList.remove("hidden");
+        });
+
+        document.getElementById("departmentYearForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const department = document.getElementById("department").value;
+            const year = document.getElementById("year").value;
+
+            const studentTableBody = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+            studentTableBody.innerHTML = ""; // Clear previous data
+
+            if (students[department] && students[department][year]) {
+                students[department][year].forEach((student, index) => {
+                    const row = studentTableBody.insertRow();
+                    const cellNumber = row.insertCell(0);
+                    const cellName = row.insertCell(1);
+                    const cellAttendance = row.insertCell(2);
+
+                    cellNumber.textContent = index + 1;
+                    cellName.textContent = student;
+                    cellAttendance.innerHTML = `<select>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>`;
+                });
+
+                document.getElementById("studentList").classList.remove("hidden");
+            } else {
+                alert("No students found for the selected department and year.");
+            }
+        });
+
+        document.getElementById("saveAttendanceBtn").addEventListener("click", function() {
+            const department = document.getElementById("department").value;
+            const year = document.getElementById("year").value;
+            const studentTableBody = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+            const attendanceTableBody = document.getElementById("attendanceTable").getElementsByTagName("tbody")[0];
+
+            Array.from(studentTableBody.rows).forEach(row => {
+                const studentName = row.cells[1].textContent;
+                const attendanceStatus = row.cells[2].querySelector("select").value;
+
+                const newRow = attendanceTableBody.insertRow();
+                newRow.insertCell(0).textContent = attendanceTableBody.rows.length + 1;
+                newRow.insertCell(1).textContent = studentName;
+                newRow.insertCell(2).textContent = department;
+                newRow.insertCell(3).textContent = year;
+                newRow.insertCell(4).textContent = attendanceStatus;
+                newRow.insertCell(5).textContent = new Date().toLocaleDateString();
+            });
+
+            document.getElementById("attendanceRecords").classList.remove("hidden");
+            alert("Attendance saved successfully!");
+        });
+
+        document.getElementById("downloadPDFBtn").addEventListener("click", function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(18);
+            doc.text("Attendance Records", 14, 10);
+
+            const table = document.getElementById("attendanceTable");
+            const rows = [];
+
+            for (let i = 1; i < table.rows.length; i++) {
+                let row = table.rows[i];
+                rows.push([
+                    row.cells[0].textContent,
+                    row.cells[1].textContent,
+                    row.cells[2].textContent,
+                    row.cells[3].textContent,
+                    row.cells[4].textContent,
+                    row.cells[5].textContent
+                ]);
+            }
+
+            doc.autoTable({
+                head: [['#', 'Student Name', 'Department', 'Year', 'Status', 'Date']],
+                body: rows,
+                startY: 20,
+                theme: 'grid'
+            });
+
+            doc.save('attendance_records.pdf');
+        });
+
+        document.getElementById("downloadExcelBtn").addEventListener("click", function() {
+            const table = document.getElementById("attendanceTable");
+            const rows = [];
+
+            // Add headers
+            const headers = [];
+            for (let i = 0; i < table.rows[0].cells.length; i++) {
+                headers.push(table.rows[0].cells[i].textContent);
+            }
+            rows.push(headers);
+
+            // Add data rows
+            for (let i = 1; i < table.rows.length; i++) {
+                let row = table.rows[i];
+                let rowData = [];
+                for (let j = 0; j < row.cells.length; j++) {
+                    rowData.push(row.cells[j].textContent);
+                }
+                rows.push(rowData);
+            }
+
+            // Create a worksheet
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Attendance Records");
+
+            // Save the file
+            XLSX.writeFile(wb, 'attendance_records.xlsx');
+        });
+    </script>
+</body>
+</html>
